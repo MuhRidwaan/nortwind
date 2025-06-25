@@ -53,6 +53,10 @@ switch ($page) {
         include 'pages/orders.php';
         break;  
 
+    case 'shipping_list':
+        include 'pages/orders.php';  
+        break;
+
 
     default:
         // Halaman default jika 'page' tidak dikenali

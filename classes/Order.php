@@ -53,6 +53,34 @@ class Order {
         }
     }
 
+     public function shipOrder(int $orderID): bool {
+        // Menggunakan NOW() dari MySQL untuk waktu server yang akurat
+        $query = "UPDATE orders SET ShippedDate = NOW() WHERE OrderID = :OrderID AND ShippedDate IS NULL";
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute(['OrderID' => $orderID]);
+    }
+
+    public function getUnshippedOrdersCount(): int {
+        $sql = "SELECT COUNT(OrderID) FROM orders WHERE ShippedDate IS NULL";
+        $stmt = $this->db->query($sql);
+        return (int) $stmt->fetchColumn();
+    }
+
+        public function getUnshippedOrdersPaginated(int $limit, int $offset): array {
+        $sql = "SELECT o.OrderID, o.OrderDate, o.RequiredDate, o.ShipName, c.CompanyName as CustomerName
+                FROM orders o
+                LEFT JOIN customers c ON o.CustomerID = c.CustomerID
+                WHERE o.ShippedDate IS NULL
+                ORDER BY o.RequiredDate ASC
+                LIMIT :limit OFFSET :offset";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Memperbarui order beserta detailnya menggunakan transaksi.
      * @param int $orderID ID dari order yang akan diupdate.

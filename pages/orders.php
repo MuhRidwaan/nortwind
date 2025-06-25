@@ -174,6 +174,36 @@ switch ($action) {
         $title = "Order Detail #" . htmlspecialchars($data_order['OrderID']);
         $content = 'view/orders/detail.php';
         break;
+
+         case 'shipping_list':
+        $active_menu = "shipping"; // Ganti menu aktif ke "shipping"
+        $title = "Daftar Pengiriman";
+        require_once 'classes/Pagination.php';
+
+        $current_page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+        $records_per_page = 20;
+        $total_orders_to_ship = $order_manager->getUnshippedOrdersCount();
+
+        $base_url = "index.php?page=orders&action=shipping_list";
+        $pagination = new Pagination($total_orders_to_ship, $current_page, $records_per_page, $base_url);
+        
+        $list_order = $order_manager->getUnshippedOrdersPaginated($pagination->getLimit(), $pagination->getOffset());
+
+        $content = 'view/orders/shipping_list.php';
+        break;
+
+    case 'ship_now':
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($id) {
+            if ($order_manager->shipOrder($id)) {
+                set_flash_message("Pesanan #{$id} berhasil ditandai sebagai telah dikirim.", 'success');
+            } else {
+                set_flash_message("Gagal memperbarui status pengiriman untuk pesanan #{$id}.", 'danger');
+            }
+        }
+        header('Location: index.php?page=orders&action=shipping_list');
+        exit;
+        break;
         
     case 'delete':
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

@@ -69,6 +69,17 @@
       </a>
     </li>
 
+
+    <!-- Orders -->
+    <li class="nav-item">
+      <a href="index.php?page=orders&action=shipping_list" class="nav-link <?php echo ($active_menu ?? '') === 'shipping' ? 'active' : ''; ?>">
+       <i class="nav-icon bi bi-truck"></i>
+        <p>shipping list</p>
+      </a>
+    </li>
+
+
+
     <!-- Products -->
     <li class="nav-item">
       <a href="index.php?page=products" class="nav-link <?php echo ($active_menu ?? '') == 'products' ? 'active' : ''; ?>">
