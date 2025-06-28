@@ -210,7 +210,7 @@ class Order {
      * @return bool
      */
     public function shipOrder(int $orderID): bool {
-        $query = "UPDATE orders SET ShippedDate = NOW() WHERE OrderID = :OrderID AND ShippedDate IS NULL";
+        $query = "UPDATE orders SET ShippedDate = NOW() WHERE OrderID = :OrderID AND ShippedDate IS NULL ";
         $stmt = $this->db->prepare($query);
         return $stmt->execute(['OrderID' => $orderID]);
     }
@@ -236,7 +236,7 @@ class Order {
                 FROM orders o
                 LEFT JOIN customers c ON o.CustomerID = c.CustomerID
                 WHERE o.ShippedDate IS NULL
-                ORDER BY o.RequiredDate ASC
+                ORDER BY o.OrderDate DESC
                 LIMIT :limit OFFSET :offset";
         
         $stmt = $this->db->prepare($sql);

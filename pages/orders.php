@@ -175,7 +175,7 @@ switch ($action) {
         $content = 'view/orders/detail.php';
         break;
 
-         case 'shipping_list':
+    case 'shipping_list':
         $active_menu = "shipping"; // Ganti menu aktif ke "shipping"
         $title = "Daftar Pengiriman";
         require_once 'classes/Pagination.php';
