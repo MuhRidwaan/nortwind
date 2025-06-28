@@ -6,7 +6,7 @@
 define('DB_HOST', 'localhost');      // Host database, biasanya 'localhost'
 define('DB_NAME', 'nortwind');       // Nama database yang kamu sebutkan
 define('DB_USER', 'root');           // Username database
-define('DB_PASS', '');               // Password database, kosongkan jika tidak ada
+define('DB_PASS', 'admin123');               // Password database, kosongkan jika tidak ada
 define('DB_CHARSET', 'utf8mb4');     // Set karakter untuk mendukung semua jenis karakter
 
 // --- PENGATURAN KONEKSI (JANGAN DIUBAH JIKA TIDAK PERLU) ---

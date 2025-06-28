@@ -43,7 +43,7 @@
                         <dd class="col-sm-9"><?php echo htmlspecialchars($data_customer['City']); ?></dd>
                         
                         <dt class="col-sm-3">Region</dt>
-                        <dd class="col-sm-9"><?php echo htmlspecialchars($data_customer['Region']); ?></dd>
+                        <dd class="col-sm-9"><?php echo htmlspecialchars($data_customer['Region'] ?? 'N/A'); ?></dd>
                         
                         <dt class="col-sm-3">Postal Code</dt>
                         <dd class="col-sm-9"><?php echo htmlspecialchars($data_customer['PostalCode']); ?></dd>
